@@ -120,5 +120,5 @@ def print_page_values(page_data, bug_values, fields):
 
 options = process_args()
 # 0.gif holds the 1 pixel image that is loaded with the bug values as parameters (during the GET request)
-process_file(sys.stdin, '/0.gif', options)
+process_file(sys.stdin, '/0.gif', options) # *** change /0.gif to the name of your 1 pixel image ***
 

@@ -3,7 +3,7 @@ log_file=$1
 num_results=$2
 main_page="'http://www.archive.org'"
 echo "<html><head /><body>"
-zcat $log_file | ./apache_to_flat.py -f ip -f page -f loadtime -f server_ms -f referrer -f useragent -f timestamp -f locale > flat_file
+zcat $log_file | ./common_log_to_flat.py -f ip -f page -f loadtime -f server_ms -f referrer -f useragent -f timestamp -f locale > flat_file
 cat flat_file | ./bounce-rate
 cat flat_file | ./top-field page $num_results
 cat flat_file | ./slowest_serverms $num_results
