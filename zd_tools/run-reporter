@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /home/zahara/Summer-Project/flat_file
+input=`ls /var/log/nginx/analytics.access.log*.gz | tail -n 1`
+output=/home/zahara/public_html/reports/`basename $input`.html
+./reporter $input 100 > $output

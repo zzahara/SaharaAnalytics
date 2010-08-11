@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "top $2 $1s:<br>"
+./zd_cut.py -f $1 > /var/tmp/tempTopFieldCutOutput
+cat /var/tmp/tempTopFieldCutOutput | ./drop_first.py | wc -l > /var/tmp/totalLogLines
+cat /var/tmp/tempTopFieldCutOutput | ./zd_select.py "$3" | ./drop_first.py | sort > /var/tmp/tempTopFieldSelectOutput
+cat /var/tmp/tempTopFieldSelectOutput | uniq -c | sort -nr | head -n $2 > /var/tmp/tempTopFieldOutput2
+./top_field_calc.py /var/tmp/totalLogLines /var/tmp/tempTopFieldOutput2 $1 | ./flat_to_html.py --header
+echo "<br><br>"

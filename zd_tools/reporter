@@ -1,0 +1,15 @@
+#!/bin/bash +x
+log_file=$1
+num_results=$2
+main_page="'http://www.archive.org'"
+echo "<html><head /><body>"
+zcat $log_file | ./apache_to_flat.py -f ip -f page -f loadtime -f server_ms -f referrer -f useragent -f timestamp -f locale > flat_file
+cat flat_file | ./bounce-rate
+cat flat_file | ./top-field page $num_results
+cat flat_file | ./slowest_serverms $num_results
+cat flat_file | ./slowest_server_load $num_results
+cat flat_file | ./top-field referrer $num_results
+cat flat_file | ./top-field locale $num_results
+echo "non archive referrers<br>"
+cat flat_file | ./top-field-select referrer $num_results "$main_page not in d['referrer']"
+echo "</body> </html>"

@@ -1,0 +1,7 @@
+#!/bin/bash +x
+./zd_combine.py -n user -c ip -c useragent | ./zd_cut.py -f user -f page | ./zd_sort.py -f user -f page | uniq |  ./zd_cut.py -f user | ./drop_first.py > /var/tmp/tempBounceRateFile
+cat /var/tmp/tempBounceRateFile | wc -l > /var/tmp/totalLogLines
+cat /var/tmp/tempBounceRateFile | uniq -c | sort > /var/tmp/bounceLines
+./bounce_rate_calc.py /var/tmp/totalLogLines /var/tmp/bounceLines
+echo ""
+
