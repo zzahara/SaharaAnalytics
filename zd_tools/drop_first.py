@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+
+# Copyright 2010 Internet Archive
+# Written by Zahara Docena
+# This program is distributed under the terms of the GNU General Public License v3
+# see: http://www.gnu.org/licenses/gpl.txt 
+
 import sys
 import errno
 
