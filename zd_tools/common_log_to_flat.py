@@ -62,7 +62,7 @@ def process_file(file, img_src, options):
             # count = the number of bug values that should be in the bug
             # bug values are separated by '&'
             # ampersands in the referrer bug value will result in a miscount
-            if 'count' in bug_values and int(bug_values['count']) == len(bug_values):
+            if count_is_valid(bug_values):
                 print_page_values(page_data, bug_values, options.fields)
             else:
                 #sys.stderr.write('COUNT DOES NOT MATCH: ' + log_line + '\n')
@@ -77,6 +77,23 @@ def process_file(file, img_src, options):
     sys.stderr.write("count didn't match: " + str(count_no_match) + '\n')
     sys.stderr.write("regex didn't match: " + str(regex_no_match) + '\n')
     sys.stderr.write("total lines = " + str(total_lines) + '\n')
+
+def count_is_valid(bug_values):
+    count = bug_values['count']
+    
+    if 'count' in bug_values and is_int(count):
+        if int(count) == len(bug_values):
+            return True
+
+    return False
+
+def is_int(x):
+    try:
+        int(x)
+        return True
+    except ValueError:
+        return False
+    
 
 # parse the values the analytics.js bug generated
 # return values in a dictionary (associated array)
