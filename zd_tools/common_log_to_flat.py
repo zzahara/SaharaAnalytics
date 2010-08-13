@@ -62,7 +62,7 @@ def process_file(file, img_src, options):
             # count = the number of bug values that should be in the bug
             # bug values are separated by '&'
             # ampersands in the referrer bug value will result in a miscount
-            if count_is_valid(bug_values):
+            if 'count' in bug_values and count_is_valid(bug_values):
                 print_page_values(page_data, bug_values, options.fields)
             else:
                 #sys.stderr.write('COUNT DOES NOT MATCH: ' + log_line + '\n')
@@ -81,7 +81,7 @@ def process_file(file, img_src, options):
 def count_is_valid(bug_values):
     count = bug_values['count']
     
-    if 'count' in bug_values and is_int(count):
+    if is_int(count):
         if int(count) == len(bug_values):
             return True
 
